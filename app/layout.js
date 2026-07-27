@@ -14,8 +14,9 @@ const bodyFont = Space_Grotesk({
 });
 
 export const metadata = {
-  title: "PulseBytte | Digital Growth Studio",
-  description: "Welcome PulseBytte by Tanmoy",
+  title: "PulseBytte | AI and Automation Micro-SaaS Studio",
+  description:
+    "PulseBytte helps businesses with AI integration, MVP development, and automation design.",
 };
 
 export default function RootLayout({ children }) {
