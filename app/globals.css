@@ -30,6 +30,23 @@ body {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  --pointer-x: 50%;
+  --pointer-y: 220px;
+}
+
+.cursor-glow {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  left: var(--pointer-x);
+  top: var(--pointer-y);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.22) 0%, rgba(59, 130, 246, 0.08) 36%, transparent 70%);
+  filter: blur(18px);
+  transition: left 220ms ease, top 220ms ease;
 }
 
 .ambient-grid {
@@ -153,8 +170,73 @@ body {
   background: rgba(255, 255, 255, 0.8);
 }
 
+.metric-chip-float {
+  animation: chip-float 4.8s ease-in-out infinite;
+}
+
+.metric-chip-float-delayed {
+  animation: chip-float 5.8s ease-in-out infinite;
+  animation-delay: 0.8s;
+}
+
 .headline {
   font-family: var(--font-heading), Georgia, serif;
+}
+
+.shimmer-title {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(105deg, #0f172a 0%, #0f172a 34%, #3b82f6 49%, #0f172a 64%, #0f172a 100%);
+  background-size: 230% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: title-shimmer 7s linear infinite;
+}
+
+.ticker-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(88, 121, 188, 0.22);
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+.ticker-shell::before,
+.ticker-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 70px;
+  height: 100%;
+  z-index: 1;
+}
+
+.ticker-shell::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(236, 244, 255, 0.95), transparent);
+}
+
+.ticker-shell::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(236, 244, 255, 0.95), transparent);
+}
+
+.ticker-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  padding: 0.85rem 0;
+  animation: ticker-roll 24s linear infinite;
+}
+
+.ticker-track span {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
 }
 
 .request-input {
@@ -256,6 +338,37 @@ select.request-input {
   }
 }
 
+@keyframes title-shimmer {
+  0% {
+    background-position: 0 50%;
+  }
+
+  100% {
+    background-position: 230% 50%;
+  }
+}
+
+@keyframes ticker-roll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes chip-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 @media (max-width: 768px) {
   .pulse-shell::before {
     width: 220px;
@@ -268,6 +381,11 @@ select.request-input {
     height: 240px;
     left: -90px;
     bottom: -150px;
+  }
+
+  .cursor-glow {
+    width: 260px;
+    height: 260px;
   }
 }
 

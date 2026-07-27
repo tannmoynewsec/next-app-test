@@ -104,8 +104,31 @@ export default function Home() {
     }, 1200);
   };
 
+  const handlePointerMove = (event) => {
+    if (event.pointerType === "touch") {
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    event.currentTarget.style.setProperty("--pointer-x", `${x}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${y}px`);
+  };
+
+  const handlePointerLeave = (event) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--pointer-x", `${rect.width / 2}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${rect.height / 2}px`);
+  };
+
   return (
-    <main className="pulse-shell min-h-screen" onPointerDown={createWave}>
+    <main
+      className="pulse-shell min-h-screen"
+      onPointerDown={createWave}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
+    >
       <div className="wave-layer" aria-hidden="true">
         {waves.map((wave) => (
           <span
@@ -125,6 +148,7 @@ export default function Home() {
       <div className="ambient-orb orb-one" aria-hidden="true" />
       <div className="ambient-orb orb-two" aria-hidden="true" />
       <div className="ambient-grid" aria-hidden="true" />
+      <div className="cursor-glow" aria-hidden="true" />
 
       <header className="glass-nav sticky top-0 z-30 border-b border-teal-900/10">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4 sm:px-8">
@@ -177,7 +201,7 @@ export default function Home() {
               Micro-SaaS Studio for AI + Automation
             </p>
             <h1 className="headline lift-in max-w-4xl text-4xl leading-tight font-bold text-slate-900 sm:text-5xl lg:text-6xl">
-              Welcome PulseBytte
+              <span className="shimmer-title">Welcome PulseBytte</span>
             </h1>
             <p className="lift-in mt-5 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
               PulseBytte builds focused Micro-SaaS products for AI and automation so small teams
@@ -210,16 +234,31 @@ export default function Home() {
                 <p className="headline text-2xl text-slate-900">48h</p>
                 <p className="text-xs text-slate-600">Kickoff</p>
               </div>
-              <div className="metric-chip rounded-xl p-3">
+              <div className="metric-chip metric-chip-float rounded-xl p-3">
                 <p className="headline text-2xl text-slate-900">3x</p>
                 <p className="text-xs text-slate-600">Faster Ops</p>
               </div>
-              <div className="metric-chip rounded-xl p-3">
+              <div className="metric-chip metric-chip-float-delayed rounded-xl p-3">
                 <p className="headline text-2xl text-slate-900">MVP</p>
                 <p className="text-xs text-slate-600">Focused</p>
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-6xl px-5 pb-10 sm:px-8" aria-label="Motion tagline strip">
+        <div className="ticker-shell">
+          <div className="ticker-track">
+            <span>AI AGENTS</span>
+            <span>MICRO-SAAS</span>
+            <span>AUTOMATION FLOWS</span>
+            <span>ONTOLOGY SYSTEMS</span>
+            <span>AI AGENTS</span>
+            <span>MICRO-SAAS</span>
+            <span>AUTOMATION FLOWS</span>
+            <span>ONTOLOGY SYSTEMS</span>
+          </div>
         </div>
       </section>
 

@@ -1,4 +1,89 @@
 <svg width="1200" height="700" viewBox="0 0 1200 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .flow-line {
+      stroke-dasharray: 14 16;
+      animation: flow 6.2s linear infinite;
+    }
+
+    .flow-line-delay-1 { animation-delay: -1s; }
+    .flow-line-delay-2 { animation-delay: -2s; }
+    .flow-line-delay-3 { animation-delay: -3s; }
+    .flow-line-delay-4 { animation-delay: -4s; }
+    .flow-line-delay-5 { animation-delay: -5s; }
+
+    .node-dot {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: node-pulse 3.2s ease-in-out infinite;
+    }
+
+    .node-dot-delay-1 { animation-delay: -0.5s; }
+    .node-dot-delay-2 { animation-delay: -1s; }
+    .node-dot-delay-3 { animation-delay: -1.5s; }
+    .node-dot-delay-4 { animation-delay: -2s; }
+    .node-dot-delay-5 { animation-delay: -2.5s; }
+
+    .core-box {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: core-breathe 4.8s ease-in-out infinite;
+    }
+
+    .core-label {
+      animation: core-label-glow 4.8s ease-in-out infinite;
+    }
+
+    @keyframes flow {
+      to { stroke-dashoffset: -180; }
+    }
+
+    @keyframes node-pulse {
+      0%,
+      100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.45);
+      }
+    }
+
+    @keyframes core-breathe {
+      0%,
+      100% {
+        filter: brightness(1);
+        transform: scale(1);
+      }
+
+      50% {
+        filter: brightness(1.12);
+        transform: scale(1.02);
+      }
+    }
+
+    @keyframes core-label-glow {
+      0%,
+      100% {
+        opacity: 0.92;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flow-line,
+      .node-dot,
+      .core-box,
+      .core-label {
+        animation: none;
+      }
+    }
+  </style>
+
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="700" gradientUnits="userSpaceOnUse">
       <stop stop-color="#ECF4FF"/>
@@ -31,18 +116,27 @@
   </g>
 
   <g filter="url(#shadow)">
-    <rect x="470" y="250" width="260" height="170" rx="20" fill="url(#core)"/>
-    <text x="600" y="324" text-anchor="middle" fill="#F8FAFC" font-size="33" font-family="Arial, sans-serif" font-weight="700">Ontology</text>
-    <text x="600" y="360" text-anchor="middle" fill="#E2E8F0" font-size="19" font-family="Arial, sans-serif">Entities + Relationships</text>
+    <rect class="core-box" x="470" y="250" width="260" height="170" rx="20" fill="url(#core)"/>
+    <text class="core-label" x="600" y="324" text-anchor="middle" fill="#F8FAFC" font-size="33" font-family="Arial, sans-serif" font-weight="700">Ontology</text>
+    <text class="core-label" x="600" y="360" text-anchor="middle" fill="#E2E8F0" font-size="19" font-family="Arial, sans-serif">Entities + Relationships</text>
   </g>
 
   <g stroke="#475569" stroke-width="3" stroke-linecap="round" opacity="0.9">
-    <path d="M470 300L290 190"/>
-    <path d="M730 300L915 190"/>
-    <path d="M470 372L245 470"/>
-    <path d="M730 372L945 470"/>
-    <path d="M600 250L600 130"/>
-    <path d="M600 420L600 560"/>
+    <path class="flow-line" d="M470 300L290 190"/>
+    <path class="flow-line flow-line-delay-1" d="M730 300L915 190"/>
+    <path class="flow-line flow-line-delay-2" d="M470 372L245 470"/>
+    <path class="flow-line flow-line-delay-3" d="M730 372L945 470"/>
+    <path class="flow-line flow-line-delay-4" d="M600 250L600 130"/>
+    <path class="flow-line flow-line-delay-5" d="M600 420L600 560"/>
+  </g>
+
+  <g>
+    <circle class="node-dot" cx="470" cy="300" r="6" fill="#0EA5E9"/>
+    <circle class="node-dot node-dot-delay-1" cx="730" cy="300" r="6" fill="#0EA5E9"/>
+    <circle class="node-dot node-dot-delay-2" cx="470" cy="372" r="6" fill="#14B8A6"/>
+    <circle class="node-dot node-dot-delay-3" cx="730" cy="372" r="6" fill="#14B8A6"/>
+    <circle class="node-dot node-dot-delay-4" cx="600" cy="250" r="6" fill="#38BDF8"/>
+    <circle class="node-dot node-dot-delay-5" cx="600" cy="420" r="6" fill="#22C55E"/>
   </g>
 
   <g filter="url(#shadow)">
