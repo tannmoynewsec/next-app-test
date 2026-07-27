@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
 const navItems = [
@@ -282,13 +281,14 @@ export default function Home() {
               <p className="mt-3 text-sm leading-7 text-slate-700">{item.description}</p>
               {item.name === "Ontology" && (
                 <div className="mt-4 overflow-hidden rounded-xl border border-slate-200/80 bg-white/80 p-2">
-                  <Image
+                  <img
                     src="/ontology-map.svg"
                     alt="Ontology concept map showing entities and relationships"
-                    width={1200}
-                    height={700}
+                    width="1200"
+                    height="700"
                     className="h-auto w-full rounded-lg"
-                    priority={false}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               )}
