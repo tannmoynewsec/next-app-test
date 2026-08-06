@@ -47,39 +47,92 @@ const services = [
   },
 ];
 
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/pulsebytte",
+    textClass: "text-teal-800 hover:text-teal-700",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
+        <path d="M4.98 3.5a2.48 2.48 0 1 0 0 4.96 2.48 2.48 0 0 0 0-4.96ZM3 9h4v12H3V9Zm7 0h3.83v1.64h.05c.53-1.01 1.83-2.07 3.77-2.07 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.5c0-1.31-.02-3-1.83-3-1.84 0-2.12 1.43-2.12 2.9V21h-4V9Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "X",
+    href: "https://x.com/pulsebytte",
+    textClass: "text-slate-800 hover:text-slate-600",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
+        <path d="M18.9 2H22l-6.77 7.74L23 22h-6.1l-4.78-6.24L6.66 22H3.54l7.23-8.27L1 2h6.25l4.32 5.7L18.9 2Zm-1.07 18h1.69L6.33 3.9H4.51L17.83 20Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@PulseBytte",
+    textClass: "text-rose-700 hover:text-rose-600",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4">
+        <path d="M21.58 7.19a2.99 2.99 0 0 0-2.1-2.12C17.63 4.5 12 4.5 12 4.5s-5.63 0-7.48.57a2.99 2.99 0 0 0-2.1 2.12A31.24 31.24 0 0 0 2 12a31.24 31.24 0 0 0 .42 4.81 2.99 2.99 0 0 0 2.1 2.12c1.85.57 7.48.57 7.48.57s5.63 0 7.48-.57a2.99 2.99 0 0 0 2.1-2.12A31.24 31.24 0 0 0 22 12a31.24 31.24 0 0 0-.42-4.81ZM10 15.5v-7l6 3.5-6 3.5Z" />
+      </svg>
+    ),
+  },
+];
+
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [waves, setWaves] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [request, setRequest] = useState({
     name: "",
     email: "",
-    hours: "8",
+    hours: "2",
     focus: "AI Integration",
     notes: "",
   });
   const currentYear = new Date().getFullYear();
-
-  const emailBody = [
-    "Hello PulseBytte team,",
-    "",
-    "I would like to request consultancy hours.",
-    "",
-    `Name: ${request.name || "Not provided"}`,
-    `Email: ${request.email || "Not provided"}`,
-    `Requested hours: ${request.hours}`,
-    `Focus area: ${request.focus}`,
-    "",
-    "Project notes:",
-    request.notes || "No additional notes.",
-  ].join("\n");
-
-  const requestMailto = `mailto:info@pulsebytte.com?subject=${encodeURIComponent("Consultancy Hours Request")}&body=${encodeURIComponent(emailBody)}`;
 
   const handleRequestChange = (field) => (event) => {
     setRequest((prev) => ({
       ...prev,
       [field]: event.target.value,
     }));
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    formData.append("access_key", "c8a882b9-e635-42de-a143-05ba2f6cc13c");
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Success! Your message has been sent.");
+        setRequest({
+          name: "",
+          email: "",
+          hours: "2",
+          focus: "AI Integration",
+          notes: "",
+        });
+      } else {
+        alert(`Error: ${data.message}`);
+      }
+    } catch {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const createWave = (event) => {
@@ -123,7 +176,7 @@ export default function Home() {
 
   return (
     <main
-      className="pulse-shell min-h-screen"
+      className="pulse-shell flex min-h-screen flex-col"
       onPointerDown={createWave}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -203,8 +256,9 @@ export default function Home() {
               <span className="shimmer-title">Welcome PulseBytte</span>
             </h1>
             <p className="lift-in mt-5 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
-              PulseBytte builds focused Micro-SaaS products for AI and automation so small teams
-              can launch faster, operate cleaner, and scale without heavy complexity.
+              PulseBytte builds focused Micro-SaaS products for AI and automation, primarily for
+              small and micro entrepreneurs who want to launch faster, operate cleaner, and scale
+              without heavy complexity.
             </p>
             <div className="lift-in mt-8 flex flex-wrap gap-3">
               <a
@@ -230,7 +284,7 @@ export default function Home() {
             </p>
             <div className="mt-5 grid grid-cols-3 gap-3 text-center">
               <div className="metric-chip rounded-xl p-3">
-                <p className="headline text-2xl text-slate-900">48h</p>
+                <p className="headline text-2xl text-slate-900">2h</p>
                 <p className="text-xs text-slate-600">Kickoff</p>
               </div>
               <div className="metric-chip metric-chip-float rounded-xl p-3">
@@ -266,8 +320,8 @@ export default function Home() {
           <h2 className="headline text-3xl font-semibold text-slate-900">About</h2>
           <p className="mt-4 max-w-4xl text-slate-700 leading-8">
             PulseBytte is a Micro-SaaS Studio for AI + Automation. We design and ship lightweight,
-            outcome-focused products that solve specific business bottlenecks with practical AI,
-            clear workflows, and fast implementation cycles.
+            outcome-focused products for small and micro entrepreneurs that solve specific business
+            bottlenecks with practical AI, clear workflows, and fast implementation cycles.
           </p>
         </article>
       </section>
@@ -327,44 +381,52 @@ export default function Home() {
           <div className="mt-8 rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-6">
             <h3 className="headline text-2xl font-semibold text-white">Request Consultancy Hours</h3>
             <p className="mt-2 text-sm leading-7 text-slate-300">
-              Fill in the brief and submit by email with one click.
+              Fill in the brief and submit with one click.
             </p>
 
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+            <form id="form" onSubmit={handleFormSubmit} className="mt-5">
+              <div className="grid gap-4 sm:grid-cols-2">
               <label className="text-sm">
                 <span className="mb-1 block font-semibold text-slate-200">Your Name</span>
                 <input
                   type="text"
+                  name="name"
                   value={request.name}
                   onChange={handleRequestChange("name")}
                   placeholder="Enter your name"
                   className="request-input"
+                  required
                 />
               </label>
               <label className="text-sm">
                 <span className="mb-1 block font-semibold text-slate-200">Email</span>
                 <input
                   type="email"
+                  name="email"
                   value={request.email}
                   onChange={handleRequestChange("email")}
                   placeholder="you@company.com"
                   className="request-input"
+                  required
                 />
               </label>
               <label className="text-sm">
                 <span className="mb-1 block font-semibold text-slate-200">Hours Needed</span>
                 <input
                   type="number"
+                  name="hours"
                   min="1"
                   max="200"
                   value={request.hours}
                   onChange={handleRequestChange("hours")}
                   className="request-input"
+                  required
                 />
               </label>
               <label className="text-sm">
                 <span className="mb-1 block font-semibold text-slate-200">Focus Area</span>
                 <select
+                  name="focus"
                   value={request.focus}
                   onChange={handleRequestChange("focus")}
                   className="request-input"
@@ -374,49 +436,48 @@ export default function Home() {
                   <option>Automation Design</option>
                 </select>
               </label>
-            </div>
+              </div>
 
-            <label className="mt-4 block text-sm">
-              <span className="mb-1 block font-semibold text-slate-200">Project Notes</span>
-              <textarea
-                rows={4}
-                value={request.notes}
-                onChange={handleRequestChange("notes")}
-                placeholder="Share timeline, goals, and expected outcomes"
-                className="request-input resize-y"
-              />
-            </label>
+              <label className="mt-4 block text-sm">
+                <span className="mb-1 block font-semibold text-slate-200">Project Notes</span>
+                <textarea
+                  name="notes"
+                  rows={4}
+                  value={request.notes}
+                  onChange={handleRequestChange("notes")}
+                  placeholder="Share timeline, goals, and expected outcomes"
+                  className="request-input resize-y"
+                />
+              </label>
 
-            <a
-              href={requestMailto}
-              className="mt-5 inline-flex rounded-full bg-amber-400 px-6 py-3 text-sm font-bold text-slate-900 transition hover:bg-amber-300"
-            >
-              Send Consultancy Request
-            </a>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-5 inline-flex rounded-full bg-amber-400 px-6 py-3 text-sm font-bold text-slate-900 transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-70"
+              >
+                {isSubmitting ? "Sending..." : "Send Consultancy Request"}
+              </button>
+            </form>
           </div>
         </article>
       </section>
 
-      <footer className="border-t border-slate-900/10 bg-white/70">
+      <footer className="mt-auto border-t border-slate-900/10 bg-white/70">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-3 px-5 py-6 text-sm text-slate-700 sm:px-8 md:flex-row md:items-center">
           <p>© {currentYear} PulseBytte. All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <a
-              href="https://www.linkedin.com/company/pulsebytte"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-teal-800 transition hover:text-teal-700"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://www.youtube.com/@PulseBytte"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-rose-700 transition hover:text-rose-600"
-            >
-              YouTube
-            </a>
+            {socialLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+                className={`inline-flex items-center justify-center transition ${link.textClass}`}
+              >
+                {link.icon}
+              </a>
+            ))}
           </div>
         </div>
       </footer>
