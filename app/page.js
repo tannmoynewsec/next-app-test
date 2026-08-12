@@ -262,10 +262,10 @@ export default function Home() {
             </p>
             <div className="lift-in mt-8 flex flex-wrap gap-3">
               <a
-                href="#contact"
+                href="/consultancy"
                 className="rounded-full bg-teal-800 px-6 py-3 text-sm font-bold text-white transition hover:bg-teal-700"
               >
-                Start a Conversation
+                Consultancy Payment
               </a>
               <a
                 href="#portfolio"
