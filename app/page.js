@@ -176,7 +176,7 @@ export default function Home() {
 
   return (
     <main
-      className="pulse-shell flex min-h-screen flex-col"
+      className="pulse-shell flex min-h-screen flex-col overflow-hidden"
       onPointerDown={createWave}
       onPointerMove={handlePointerMove}
       onPointerLeave={handlePointerLeave}
@@ -246,13 +246,13 @@ export default function Home() {
         )}
       </header>
 
-      <section id="top" className="mx-auto w-full max-w-6xl px-5 pt-14 pb-20 sm:px-8">
-        <div className="hero-grid section-card rounded-3xl p-7 sm:p-10">
+      <section id="top" className="mx-auto w-full max-w-6xl px-5 pt-7 pb-7 sm:px-8">
+        <div className="hero-grid section-card rounded-3xl p-5 sm:p-7">
           <div>
             <p className="lift-in mb-4 inline-flex rounded-full bg-emerald-100 px-4 py-2 text-xs font-semibold tracking-[0.14em] text-emerald-900 uppercase">
               Micro-SaaS Studio for AI + Automation
             </p>
-            <h1 className="headline lift-in max-w-4xl text-4xl leading-tight font-bold text-slate-900 sm:text-5xl lg:text-6xl">
+            <h1 className="headline lift-in max-w-4xl text-3xl leading-tight font-bold text-slate-900 sm:text-4xl lg:text-5xl">
               <span className="shimmer-title">Welcome PulseBytte</span>
             </h1>
             <p className="lift-in mt-5 max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">
@@ -306,7 +306,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-5 pb-10 sm:px-8" aria-label="Motion tagline strip">
+      <section className="mx-auto w-full max-w-6xl px-5 pb-4 sm:px-8" aria-label="Motion tagline strip">
         <div className="ticker-shell">
           <div className="ticker-track">
             <span>AI AGENTS</span>
@@ -321,7 +321,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8">
+      <section id="about" className="mx-auto w-full max-w-6xl px-5 pb-8 sm:px-8">
         <article className="section-card rounded-2xl p-6 sm:p-8">
           <h2 className="headline text-3xl font-semibold text-slate-900">About</h2>
           <p className="mt-4 max-w-4xl text-slate-700 leading-8">
@@ -332,7 +332,7 @@ export default function Home() {
         </article>
       </section>
 
-      <section id="portfolio" className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8">
+      <section id="portfolio" className="mx-auto w-full max-w-6xl px-5 pb-8 sm:px-8">
         <h2 className="headline text-3xl font-semibold text-slate-900">Portfolio</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-2">
           {portfolioItems.map((item) => (
@@ -357,7 +357,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="services" className="mx-auto w-full max-w-6xl px-5 pb-16 sm:px-8">
+      <section id="services" className="mx-auto w-full max-w-6xl px-5 pb-8 sm:px-8">
         <h2 className="headline text-3xl font-semibold text-slate-900">Services</h2>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {services.map((service) => (
@@ -369,7 +369,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="mx-auto w-full max-w-6xl px-5 pb-20 sm:px-8">
+      <section id="contact" className="mx-auto w-full max-w-6xl px-5 pb-8 sm:px-8">
         <article className="rounded-2xl border border-slate-700/55 bg-[linear-gradient(160deg,rgba(15,23,42,0.88),rgba(30,41,59,0.84))] p-7 text-slate-200 shadow-[0_18px_34px_rgba(2,6,23,0.32)] sm:p-9">
           <h2 className="headline text-3xl font-semibold">Contact</h2>
           <p className="mt-3 max-w-3xl leading-8 text-slate-300">
